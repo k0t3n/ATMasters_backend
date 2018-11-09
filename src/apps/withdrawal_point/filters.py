@@ -60,21 +60,46 @@ class NearestItemsFilter(BaseFilterBackend):
         ]
 
 
-class WithdrawalPointBankFilter(BaseFilterBackend):
-    bank_id_param = 'bank_id'
+class WithdrawalPointBanksFilter(BaseFilterBackend):
+    banks_id_param = 'bank_ids'
+
+    def _replace_trash_from_str(self, string):
+        symbols_to_replace = [',', ' ', '[', ']']
+
+        for symbol in symbols_to_replace:
+            if symbol in string:
+                string = string.replace(symbol, '')
+
+        return string
+
+    def _convert_str_to_list(self, string):
+        string = self._replace_trash_from_str(string)
+        list_of_int = []
+
+        for symbol in string:
+            if not symbol.isnumeric():
+                raise ParseError('{} contains non-numeric symbol - {}'.format(self.banks_id_param, symbol))
+
+            list_of_int.append(int(symbol))
+
+        return list_of_int
 
     def _get_filter_bank(self, request):
-        bank_id_string = request.query_params.get(self.bank_id_param, None)
-        print(bank_id_string)
+        bank_ids_string = request.query_params.get(self.banks_id_param, None)
 
-        return bank_id_string
+        if not bank_ids_string:
+            return None
+
+        bank_ids_list = self._convert_str_to_list(bank_ids_string)
+
+        return bank_ids_list
 
     def filter_queryset(self, request, queryset, view):
-        bank_id = self._get_filter_bank(request)
+        bank_ids = self._get_filter_bank(request)
 
-        if not bank_id:
+        if not bank_ids:
             return queryset
 
         return (
-                queryset.filter(bank__id=bank_id) | queryset.filter(point_type=WithdrawalPoint.SHOP_POINT_TYPE)
+                queryset.filter(bank__id__in=bank_ids) | queryset.filter(point_type=WithdrawalPoint.SHOP_POINT_TYPE)
         ).distinct()
