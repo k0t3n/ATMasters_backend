@@ -2,7 +2,7 @@ from django.db import models
 from django.db.models import Case, When, F
 from rest_framework import viewsets
 
-from src.apps.withdrawal_point.filters import NearestItemsFilter, WithdrawalPointBankFilter
+from src.apps.withdrawal_point.filters import NearestItemsFilter, WithdrawalPointBanksFilter
 from src.apps.withdrawal_point.models import WithdrawalPoint
 from src.apps.withdrawal_point.serializers import WithdrawalPointSerializer
 
@@ -26,5 +26,5 @@ class WithdrawalPointListView(viewsets.ReadOnlyModelViewSet):
     distance_filter_field = 'coordinates'
     filter_backends = (
         NearestItemsFilter,
-        WithdrawalPointBankFilter,
+        WithdrawalPointBanksFilter,
     )
