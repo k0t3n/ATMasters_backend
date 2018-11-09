@@ -2,6 +2,7 @@ import coreapi
 from django.contrib.gis.geos import Point
 from django.contrib.gis.measure import Distance
 from django.db.models import Q
+from django_filters import rest_framework as filters
 from rest_framework.exceptions import ParseError
 from rest_framework.filters import BaseFilterBackend
 
@@ -114,3 +115,9 @@ class WithdrawalPointBanksFilter(BaseFilterBackend):
                 description='Bank ids list. Example: /api/withdrawalPoints/?bank_ids=[1,2,3] and ect.',
             ),
         ]
+
+
+class WithdrawalPointSimpleFieldsFilterSet(filters.FilterSet):
+    class Meta:
+        model = WithdrawalPoint
+        fields = ('is_nfc', 'is_disabled_access', 'point_type')
