@@ -66,14 +66,16 @@ class Schedule(models.Model):
 
 
 class WithdrawalPoint(models.Model):
-    ATM_POINT_TYPE = 'atm'
-    SHOP_POINT_TYPE = 'shop'
-    BANK_POINT_TYPE = 'bank'
+    ATM_POINT_TYPE = 0
+    SHOP_POINT_TYPE = 1
+    BANK_POINT_TYPE = 2
+    TERMINAL_POINT_TYPE = 3
 
     POINT_TYPE_CHOICES = (
         (ATM_POINT_TYPE, 'банкомат'),
         (SHOP_POINT_TYPE, 'магазин'),
-        (BANK_POINT_TYPE, 'банк')
+        (BANK_POINT_TYPE, 'банк'),
+        (TERMINAL_POINT_TYPE, 'терминал'),
     )
 
     point_type = models.CharField(
