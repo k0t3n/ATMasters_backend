@@ -103,3 +103,14 @@ class WithdrawalPointBanksFilter(BaseFilterBackend):
         return (
                 queryset.filter(bank__id__in=bank_ids) | queryset.filter(point_type=WithdrawalPoint.SHOP_POINT_TYPE)
         ).distinct()
+
+    def get_schema_fields(self, view):
+        return [
+            coreapi.Field(
+                name=self.banks_id_param,
+                location='query',
+                required=False,
+                type='list',
+                description='Bank ids list. Example: /api/withdrawalPoints/?bank_ids=[1,2,3] and ect.',
+            ),
+        ]
