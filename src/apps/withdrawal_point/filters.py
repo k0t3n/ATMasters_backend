@@ -1,10 +1,7 @@
 import coreapi
-import django_filters
 from django.contrib.gis.geos import Point
 from django.contrib.gis.measure import Distance
 from django.db.models import Q
-import django_filters
-from django_filters.filterset import BaseFilterSet, FilterSet
 from rest_framework.exceptions import ParseError
 from rest_framework.filters import BaseFilterBackend
 
