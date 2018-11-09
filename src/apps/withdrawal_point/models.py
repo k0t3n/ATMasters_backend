@@ -78,9 +78,9 @@ class WithdrawalPoint(models.Model):
         (TERMINAL_POINT_TYPE, 'терминал'),
     )
 
-    point_type = models.CharField(
+    point_type = models.IntegerField(
         choices=POINT_TYPE_CHOICES,
-        max_length=4,
+        default=ATM_POINT_TYPE,
         verbose_name=_('тип точки')
     )
     bank = models.ForeignKey(
