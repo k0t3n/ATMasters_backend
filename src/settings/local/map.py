@@ -5,6 +5,6 @@ MAP_WIDGETS = {
         ("GooglePlaceAutocompleteOptions", {'componentRestrictions': {'country': 'ru'}}),
         ("markerFitZoom", 12),
     ),
-    'GOOGLE_MAP_API_KEY': 'key example',
+    'GOOGLE_MAP_API_KEY': 'AIzaSyBF5I5ZrUVpxRtQMyDtHhnzOOmgIi5sCYo',
     'LANGUAGE': 'ru'
 }
