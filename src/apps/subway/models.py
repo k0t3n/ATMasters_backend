@@ -1,5 +1,8 @@
 from django.contrib.gis.db import models
+from django.contrib.gis.measure import Distance
 from django.utils.translation import ugettext_lazy as _
+
+from src.apps.withdrawal_point.models import WithdrawalPoint
 
 
 class SubwayStation(models.Model):
@@ -39,3 +42,22 @@ class SubwayStation(models.Model):
 
     def __str__(self):
         return self.title
+
+    @property
+    def longitude(self):
+        return self.coordinates.x
+
+    @property
+    def latitude(self):
+        return self.coordinates.y
+
+    @property
+    def coords(self):
+        return {'latitude': self.latitude, 'longitude': self.longitude}
+
+    @property
+    def nearest_withdrawal_points(self):
+        radius = 1000  # meters
+        return WithdrawalPoint.objects.filter(
+            coordinates__distance_lt=(self.coordinates, Distance(m=radius))
+        )
