@@ -1,14 +1,16 @@
 from django.contrib import admin
 from django.contrib.gis.db import models
 from mapwidgets import GooglePointFieldWidget
+from suit.admin import RelatedFieldAdmin
 
 from .models import SubwayStation
 
 
-class SubwayStationAdmin(admin.ModelAdmin):
+@admin.register(SubwayStation)
+class SubwayStationAdmin(RelatedFieldAdmin):
     formfield_overrides = {
         models.PointField: {"widget": GooglePointFieldWidget}
     }
-
-
-admin.site.register(SubwayStation, SubwayStationAdmin)
+    search_fields = ('title', 'branch_color')
+    list_display = ('title', 'branch_color')
+    list_filter = ('branch_color',)
