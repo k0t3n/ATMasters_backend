@@ -8,6 +8,11 @@ class Bank(models.Model):
         verbose_name=_('название'),
     )
 
+    icon = models.ImageField(
+        verbose_name=_('иконка'),
+        null=True, blank=True
+    )
+
     site = models.URLField(
         verbose_name=_('сайт'),
         null=True, blank=True
