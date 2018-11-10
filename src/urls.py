@@ -7,6 +7,10 @@ from src.apps.currency.views import CurrencyListView
 from src.apps.subway.views import SubwayStationsListView
 from src.apps.withdrawal_point.views import WithdrawalPointListView
 
+admin.site.site_header = 'CashYouApp'
+admin.site.index_title = 'CashYouApp'
+admin.site.site_title = 'CashYouApp'
+
 router = routers.SimpleRouter()
 
 router.register('withdrawalPoints', WithdrawalPointListView)
