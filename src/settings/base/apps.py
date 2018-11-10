@@ -1,4 +1,7 @@
 INSTALLED_APPS = [
+    # Django suit admin
+    'src.settings.base.admin.SuitConfig',
+
     # Django core
     'django.contrib.admin',
     'django.contrib.auth',
