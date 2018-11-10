@@ -1,15 +1,17 @@
 from django.contrib.gis.db import models
 from django.utils.translation import ugettext_lazy as _
 
+from src.apps.withdrawal_point.managers import WithdrawalPointsManager
+
 
 class Schedule(models.Model):
-    MONDAY_CHOICE = 'mon'
-    TUESDAY_CHOICE = 'tue'
-    WEDNESDAY_CHOICE = 'wed'
-    THURSDAY_CHOICE = 'thu'
-    FRIDAY_CHOICE = 'fri'
-    SATURDAY_CHOICE = 'sat'
-    SUNDAY_CHOICE = 'sun'
+    MONDAY_CHOICE = 1
+    TUESDAY_CHOICE = 2
+    WEDNESDAY_CHOICE = 3
+    THURSDAY_CHOICE = 4
+    FRIDAY_CHOICE = 5
+    SATURDAY_CHOICE = 6
+    SUNDAY_CHOICE = 7
 
     WEEKDAY_CHOICES = (
         (MONDAY_CHOICE, _('понедельник')),
@@ -21,14 +23,14 @@ class Schedule(models.Model):
         (SUNDAY_CHOICE, _('воскресенье')),
     )
 
-    start_day = models.CharField(
-        max_length=3,
+    start_day = models.IntegerField(
         choices=WEEKDAY_CHOICES,
+        default=MONDAY_CHOICE,
         verbose_name=_('день начала')
     )
-    end_day = models.CharField(
-        max_length=3,
+    end_day = models.IntegerField(
         choices=WEEKDAY_CHOICES,
+        default=SUNDAY_CHOICE,
         verbose_name=_('день окончания')
     )
     start_time = models.TimeField(
