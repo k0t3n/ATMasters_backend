@@ -25,5 +25,5 @@ class WithdrawalPointSerializer(serializers.ModelSerializer):
         fields = (
             'id', 'point_type', 'bank', 'closest_subway', 'coords', 'address', 'schedule', 'currencies',
             'cash_in', 'cash_out', 'contactless_payments', 'mobile_payments', 'disabled_access',
-            'is_working_now', 'distance'
+            'self_collection', 'is_working_now', 'distance'
         )
