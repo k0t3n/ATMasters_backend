@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from django.contrib.gis.db import models
 from django.utils.translation import ugettext_lazy as _
 
@@ -126,6 +128,19 @@ class WithdrawalPoint(models.Model):
             string += ', {}'.format(self.bank)
 
         return string
+
+    @property
+    def is_working_now(self):
+        schedules = self.schedule.all()
+        time_now = datetime.now()
+        result = False
+
+        for schedule in schedules:
+            if schedule.start_day <= time_now.weekday() <= schedule.end_day:
+                if schedule.is_round_the_clock or schedule.start_time <= time_now.time():
+                    result = True
+
+        return result
 
     @property
     def longitude(self):
