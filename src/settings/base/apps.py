@@ -12,6 +12,7 @@ INSTALLED_APPS = [
     'src.apps.withdrawal_point',
     'src.apps.currency',
     'src.apps.bank',
+    'src.apps.subway',
 
     # 3d party apps
     'rest_framework',
