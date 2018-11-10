@@ -1,3 +1,5 @@
+from datetime import datetime
+
 import coreapi
 from django.contrib.gis.geos import Point
 from django.contrib.gis.measure import Distance
@@ -118,6 +120,22 @@ class WithdrawalPointBanksFilter(BaseFilterBackend):
 
 
 class WithdrawalPointSimpleFieldsFilterSet(filters.FilterSet):
+    is_working_now = filters.BooleanFilter(method='working_points')
+
     class Meta:
         model = WithdrawalPoint
-        fields = ('is_nfc', 'is_disabled_access', 'point_type')
+        fields = ('is_nfc', 'is_disabled_access', 'is_working_now', 'point_type')
+
+    def working_points(self, queryset, name, value):
+        if value:
+            time_now = datetime.now()
+            entering_the_range = queryset.filter(
+                schedule__start_day__lte=time_now.weekday(),
+                schedule__end_day__gte=time_now.weekday(),
+            )
+
+            round_the_clock = entering_the_range.filter(schedule__is_round_the_clock=True)
+            working_now = entering_the_range.filter(schedule__is_closed=False)
+            queryset = (round_the_clock | working_now).distinct()
+
+        return queryset
