@@ -1,7 +1,6 @@
 from rest_framework import serializers
 
 from src.apps.subway.models import SubwayStation
-from src.apps.withdrawal_point.serializers import WithdrawalPointSerializer
 
 
 class SubwayStationSerializer(serializers.ModelSerializer):
@@ -11,6 +10,8 @@ class SubwayStationSerializer(serializers.ModelSerializer):
 
 
 class SubwayStationDetailedSerializer(serializers.ModelSerializer):
+    from src.apps.withdrawal_point.serializers import WithdrawalPointSerializer
+
     nearest_withdrawal_points = WithdrawalPointSerializer(many=True)
 
     class Meta:
