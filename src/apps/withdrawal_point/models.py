@@ -128,7 +128,11 @@ class WithdrawalPoint(models.Model):
         default=False
     )
     disabled_access = models.BooleanField(
-        _('доступно для инвалидов'),
+        verbose_name=_('доступно для инвалидов'),
+        default=False
+    )
+    self_collection = models.BooleanField(
+        verbose_name=_('самоинкассация'),
         default=False
     )
 
