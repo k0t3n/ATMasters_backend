@@ -2,8 +2,6 @@ from django.contrib.gis.db import models
 from django.contrib.gis.measure import Distance
 from django.utils.translation import ugettext_lazy as _
 
-from src.apps.withdrawal_point.models import WithdrawalPoint
-
 
 class SubwayStation(models.Model):
     RED_COLOR_CHOICE = 'red'
@@ -57,7 +55,8 @@ class SubwayStation(models.Model):
 
     @property
     def nearest_withdrawal_points(self):
-        radius = 1000  # meters
+        from src.apps.withdrawal_point.models import WithdrawalPoint
+        meters_radius = 1000  # meters
         return WithdrawalPoint.objects.filter(
-            coordinates__distance_lt=(self.coordinates, Distance(m=radius))
+            coordinates__distance_lt=(self.coordinates, Distance(m=meters_radius))
         )
