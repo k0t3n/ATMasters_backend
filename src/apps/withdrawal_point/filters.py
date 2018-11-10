@@ -127,6 +127,7 @@ class WithdrawalPointSimpleFieldsFilterSet(filters.FilterSet):
         fields = ('is_nfc', 'is_disabled_access', 'is_working_now', 'point_type')
 
     def working_points(self, queryset, name, value):
+        # TODO handle false value
         if value:
             time_now = datetime.now()
             entering_the_range = queryset.filter(
