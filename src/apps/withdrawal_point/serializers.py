@@ -18,6 +18,7 @@ class WithdrawalPointSerializer(serializers.ModelSerializer):
     class Meta:
         model = WithdrawalPoint
         fields = (
-            'id', 'point_type', 'bank', 'coords', 'schedule',
-            'currencies', 'is_nfc', 'is_disabled_access', 'is_working_now'
+            'id', 'point_type', 'bank', 'coords', 'address', 'schedule', 'currencies',
+            'cash_in', 'cash_out', 'contactless_payments', 'mobile_payments', 'disabled_access',
+            'is_working_now'
         )
