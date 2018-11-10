@@ -1,4 +1,4 @@
-from django.db import models
+from django.contrib.gis.db import models
 from django.utils.translation import ugettext_lazy as _
 
 
@@ -20,6 +20,11 @@ class SubwayStation(models.Model):
     title = models.CharField(
         max_length=255,
         verbose_name=_('название'),
+    )
+
+    coordinates = models.PointField(
+        verbose_name=_('координаты'),
+        null=True
     )
 
     branch_color = models.CharField(
