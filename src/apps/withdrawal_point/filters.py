@@ -3,6 +3,7 @@ from datetime import datetime
 import coreapi
 from django.contrib.gis.geos import Point
 from django.contrib.gis.measure import Distance
+from django.contrib.gis.db.models.functions import Distance as DistanceFunc
 from django.db.models import Q
 from django_filters import rest_framework as filters
 from rest_framework.exceptions import ParseError
@@ -42,7 +43,11 @@ class NearestItemsFilter(BaseFilterBackend):
         except TypeError:
             raise ParseError('Invalid distance string supplied for parameter {0}'.format(self.radius_param))
 
-        return queryset.filter(Q(**{'{}__distance_lt'.format(filter_field): (point, dist)}))
+        return queryset.filter(
+            Q(**{'{}__distance_lt'.format(filter_field): (point, dist)})
+        ).annotate(
+            distance=DistanceFunc('coordinates', Point(point.x, point.y, srid=4326))
+        )
 
     def get_schema_fields(self, view):
         return [
