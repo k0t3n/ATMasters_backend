@@ -1,7 +1,10 @@
 from rest_framework import serializers
+
 from src.apps.withdrawal_point.models import WithdrawalPoint, Schedule
 from src.apps.currency.serializers import CurrencySerializer
 from src.apps.bank.serializers import BankSerializer
+
+from src.apps.subway.serializers import SubwayStationSerializer
 
 
 class ScheduleSerializer(serializers.ModelSerializer):
@@ -13,12 +16,14 @@ class ScheduleSerializer(serializers.ModelSerializer):
 class WithdrawalPointSerializer(serializers.ModelSerializer):
     schedule = ScheduleSerializer(many=True)
     currencies = CurrencySerializer(many=True)
+    closest_subway = SubwayStationSerializer()
+    distance = serializers.CharField(read_only=True)
     bank = BankSerializer()
 
     class Meta:
         model = WithdrawalPoint
         fields = (
-            'id', 'point_type', 'bank', 'coords', 'address', 'schedule', 'currencies',
+            'id', 'point_type', 'bank', 'closest_subway', 'coords', 'address', 'schedule', 'currencies',
             'cash_in', 'cash_out', 'contactless_payments', 'mobile_payments', 'disabled_access',
-            'is_working_now'
+            'is_working_now', 'distance'
         )
