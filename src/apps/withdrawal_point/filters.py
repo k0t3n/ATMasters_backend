@@ -124,7 +124,10 @@ class WithdrawalPointSimpleFieldsFilterSet(filters.FilterSet):
 
     class Meta:
         model = WithdrawalPoint
-        fields = ('is_nfc', 'is_disabled_access', 'is_working_now', 'point_type')
+        fields = (
+            'cash_in', 'cash_out', 'contactless_payments', 'mobile_payments', 'disabled_access',
+            'is_working_now', 'point_type'
+        )
 
     def working_points(self, queryset, name, value):
         # TODO handle false value
