@@ -29,6 +29,9 @@ class WithdrawalPointAdmin(RelatedFieldAdmin):
     filter_horizontal = ('schedule',)
 
 
-# TODO: admin
-admin.site.register(Schedule)
-admin.site.register(WithdrawalPoint, WithdrawalPointAdmin)
+@admin.register(Schedule)
+class ScheduleAdmin(RelatedFieldAdmin):
+    search_fields = ('start_day', 'is_round_the_clock', 'is_closed')
+    list_display = ('start_day', 'end_day', 'start_time', 'end_time', 'is_round_the_clock', 'is_closed')
+    list_filter = ('start_day', 'is_round_the_clock', 'is_closed')
+    list_select_related = True
