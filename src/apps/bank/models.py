@@ -8,6 +8,11 @@ class Bank(models.Model):
         verbose_name=_('название'),
     )
 
+    site = models.URLField(
+        verbose_name=_('сайт'),
+        null=True, blank=True
+    )
+
     class Meta:
         verbose_name = _('банки')
         verbose_name_plural = _('банк')
