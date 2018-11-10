@@ -78,6 +78,8 @@ class WithdrawalPoint(models.Model):
         (TERMINAL_POINT_TYPE, 'терминал'),
     )
 
+    objects = WithdrawalPointsManager()
+
     point_type = models.IntegerField(
         choices=POINT_TYPE_CHOICES,
         default=ATM_POINT_TYPE,
