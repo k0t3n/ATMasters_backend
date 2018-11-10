@@ -98,6 +98,11 @@ class WithdrawalPoint(models.Model):
     coordinates = models.PointField(
         verbose_name=_('координаты')
     )
+    address = models.CharField(
+        max_length=255,
+        verbose_name=_('адрес'),
+        null=True, blank=True
+    )
     schedule = models.ManyToManyField(
         'Schedule',
         verbose_name=_('расписание')
@@ -106,15 +111,25 @@ class WithdrawalPoint(models.Model):
         'currency.Currency',
         verbose_name=_('валюты')
     )
-    is_nfc = models.NullBooleanField(
-        verbose_name=_('NFC?'),
-        default=None,
-        null=True, blank=True,
+    cash_in = models.BooleanField(
+        verbose_name=_('внесение наличных'),
+        default=False
     )
-    is_disabled_access = models.NullBooleanField(
-        _('доступно для инвалидов?'),
-        default=None,
-        null=True, blank=True
+    cash_out = models.BooleanField(
+        verbose_name=_('снятие наличных'),
+        default=False
+    )
+    contactless_payments = models.BooleanField(
+        verbose_name=_('бесконтактные платежи'),
+        default=False
+    )
+    mobile_payments = models.BooleanField(
+        verbose_name=_('мобильные устройства'),
+        default=False
+    )
+    disabled_access = models.BooleanField(
+        _('доступно для инвалидов'),
+        default=False
     )
 
     class Meta:
