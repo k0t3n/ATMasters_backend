@@ -1,6 +1,8 @@
 from datetime import datetime
 
 from django.contrib.gis.db import models
+from django.contrib.gis.db.models.functions import Distance
+from django.contrib.gis.geos import Point
 from django.utils.translation import ugettext_lazy as _
 
 from src.apps.subway.models import SubwayStation
@@ -170,3 +172,9 @@ class WithdrawalPoint(models.Model):
     @property
     def coords(self):
         return {'latitude': self.latitude, 'longitude': self.longitude}
+
+    @property
+    def closest_subway(self):
+        return SubwayStation.objects.annotate(
+            distance=Distance('coordinates', Point(59.938611, 30.318194, srid=4326))
+        ).order_by('-distance').first()
