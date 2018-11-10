@@ -3,7 +3,7 @@ from datetime import datetime
 from django.contrib.gis.db import models
 from django.utils.translation import ugettext_lazy as _
 
-from src.apps.withdrawal_point.managers import WithdrawalPointsManager
+from src.apps.subway.models import SubwayStation
 
 
 class Schedule(models.Model):
@@ -81,8 +81,6 @@ class WithdrawalPoint(models.Model):
         (BANK_POINT_TYPE, 'банк'),
         (TERMINAL_POINT_TYPE, 'терминал'),
     )
-
-    objects = WithdrawalPointsManager()
 
     point_type = models.IntegerField(
         choices=POINT_TYPE_CHOICES,
