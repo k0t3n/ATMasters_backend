@@ -8,7 +8,6 @@ class Currency(models.Model):
         unique=True,
         verbose_name=_('название')
     )
-
     iso_name = models.CharField(
         max_length=3,
         unique=True,
