@@ -1,7 +1,8 @@
 from datetime import datetime
 
 from django.contrib.gis.db import models
-from django.contrib.gis.db.models.functions import Distance
+from django.contrib.gis.db.models.functions import Distance as DistanceFunc
+from django.contrib.gis.measure import Distance
 from django.contrib.gis.geos import Point
 from django.utils.translation import ugettext_lazy as _
 
@@ -159,7 +160,7 @@ class WithdrawalPoint(models.Model):
                 if schedule.is_round_the_clock:
                     result = True
 
-                if schedule.start_time and schedule.end_time:
+                elif schedule.start_time and schedule.end_time:
                     if schedule.start_time <= time_now.time() <= schedule.end_time:
                         result = True
 
@@ -179,6 +180,13 @@ class WithdrawalPoint(models.Model):
 
     @property
     def closest_subway(self):
-        return SubwayStation.objects.annotate(
-            distance=Distance('coordinates', Point(59.938611, 30.318194, srid=4326))
-        ).order_by('-distance').first()
+        distance = Distance(m=1000)
+        point = Point(self.coordinates.x, self.coordinates.y, srid=4326)
+        subway = SubwayStation.objects.annotate(
+            distance=DistanceFunc('coordinates', point),
+        ).filter(distance__lte=distance).order_by('-distance')
+
+        if subway.exists():
+            return subway.first()
+        else:
+            return None
