@@ -13,6 +13,7 @@ This is backend service for our iOS app CashYouApp developed on the Vk Hackathon
 * [DRF](https://www.django-rest-framework.org)
 * [PostgresSQL](https://www.postgresql.org/)
 * [PostGIS](https://postgis.net/)
+* :heart:
 
 ## Team
 
