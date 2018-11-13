@@ -22,12 +22,10 @@ class SubwayStation(models.Model):
         max_length=255,
         verbose_name=_('название'),
     )
-
     coordinates = models.PointField(
         verbose_name=_('координаты'),
         null=True
     )
-
     branch_color = models.CharField(
         max_length=16,
         choices=BRANCH_COLOR_CHOICES,
