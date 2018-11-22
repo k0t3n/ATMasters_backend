@@ -3,7 +3,10 @@
 [![Sleepless hours](https://img.shields.io/badge/sleepless%20hours-42-green.svg)](https://vk.com/wall-103600381_1413)
 [![Red Bull cans](https://img.shields.io/badge/Red%20Bull%20cans-12-red.svg)](https://pp.userapi.com/c848524/v848524962/b8097/b1m2mSraQJ4.jpg)
 
-This is backend service for our iOS app CashYouApp developed on the Vk Hackathon 2018.
+This is backend service for our iOS app CashYouApp developed during the Vk Hackathon 2018.
+
+And yes, we won!
+![happy faces](https://pp.userapi.com/c845123/v845123440/134733/TQEP50w2GoQ.jpg)
 
 ## Built With
 
